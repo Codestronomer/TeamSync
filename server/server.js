@@ -10,7 +10,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 // Routes
-import profileRouter from '../server/routes/profile.routes.js';
+import userRouter from './routes/user.routes.js';
 import authRouter from './routes/auth.router.js';
 
 
@@ -43,14 +43,13 @@ const storage = multer.diskStorage({
                 cb(null, file.originalname);
         }
 });
-
 const upload = multer({ storage: storage })
 
 // static route
 app.use("/assets", express.static(path.join(__dirname, "public/assets")))
 
 // app routes
-app.use('/', profileRouter);
+app.use('/', userRouter);
 app.use('/', authRouter);
 
 /* DATABASE CONNECTION */
