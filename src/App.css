@@ -32,7 +32,34 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.wrapper {
+  padding: 5px 20px;
+}
+
+.wrapper fieldset {
+  margin: 10px 0;
+}
+
+form {
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center;s */
+}
+
+label {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+
+}
+
+input {
+  margin-top: 17px;
+  margin-left: 5px;
 }
