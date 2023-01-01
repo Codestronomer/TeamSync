@@ -12,6 +12,7 @@ import { fileURLToPath } from 'url';
 // Routes
 import userRouter from './routes/user.routes.js';
 import authRouter from './routes/auth.router.js';
+import projectRouter from './routes/project.routes.js';
 
 
 /* CONFIGURATIONS */
@@ -49,8 +50,9 @@ const upload = multer({ storage: storage })
 app.use("/assets", express.static(path.join(__dirname, "public/assets")))
 
 // app routes
-app.use('/', userRouter);
+app.use('/user', userRouter);
 app.use('/', authRouter);
+app.use('/project', projectRouter);
 
 /* DATABASE CONNECTION */
 mongoose.connect(process.env.MONGO_URI, {
