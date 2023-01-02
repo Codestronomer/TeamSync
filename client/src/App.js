@@ -10,17 +10,6 @@ import { createTheme } from '@mui/material/styles';
 import { themeSettings } from './theme';
 
 function App() {
-  // const [message, setMessage] = useState("")
-
-  // const getData = async () => {
-  //   const res = await axios.get('/profile')
-  //   console.log(res)
-  //   setMessage(res.data.message)
-  // }
-
-  // useEffect(() => {
-  //   getData()
-  // }, [])
 
   const mode = useSelector((state) => state.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
@@ -37,8 +26,6 @@ function App() {
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
-      {/* <p>The Profile message is {message} </p> */}
-      {/* <SignUp /> */}
     </div>
   );
 }
@@ -80,7 +67,7 @@ export default App;
 //     })
 //       .then((response) => {
 //         console.log(response);
-//         setSubmitting(false);
+//         setSubmitting(false);s
 //         setFormData({ reset: true })
 //       })
 //       .catch((error) => {
