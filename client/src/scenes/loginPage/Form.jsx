@@ -54,18 +54,18 @@ const Form = () => {
 
         const register = async (values, onSubmitProps) => {
                 // this allows us to send form into with image
-                const formData = new FormData();
-                for (let value in values) {
-                        formData.append(value, values[value])
-                }
+                // const formData = new FormData();
+                // for (let value in values) {
+                //         formData.append(value, values[value])
+                // }
                 // formData.append('picturePath', values.picture.name);
-
+                // console.log(formData);
                 axios.post('/auth/register', {
-                        firstName: formData.firstName,
-                        lastName: formData.lastName,
-                        email: formData.email,
-                        password: formData.password,
-                        confirmPassword: formData.confirmPassword
+                        firstName: values.firstName,
+                        lastName: values.lastName,
+                        email: values.email,
+                        password: values.password,
+                        confirmPassword: values.confirmPassword
                 }).then((response) => {
                         const savedUser = response.data;
                         onSubmitProps.resetForm();
@@ -164,6 +164,7 @@ const Form = () => {
                                                                         onChange={handleChange}
                                                                         value={values.password}
                                                                         name="password"
+                                                                        type="password"
                                                                         error={Boolean(touched.password) && Boolean(errors.password)}
                                                                         helperText={touched.password && errors.password}
                                                                         sx={{ gridColumn: "span 4" }}
@@ -173,6 +174,7 @@ const Form = () => {
                                                                         onChange={handleChange}
                                                                         value={values.confirmPassword}
                                                                         name="confirmPassword"
+                                                                        type="password"
                                                                         error={Boolean(touched.confirmPassword) && Boolean(errors.confirmPassword)}
                                                                         helperText={touched.confirmPassword && errors.confirmPassword}
                                                                         sx={{ gridColumn: "span 4" }}
