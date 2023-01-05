@@ -62,179 +62,176 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
             }}>
             <Toolbar sx={{ justifyContent: "space-between" }}>
                 {/* LEFT SIDE of the NavBar  */}
+                <FlexBetween padding="1rem 15%">
+                    <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+                        <MenuIcon />
+                    </IconButton>
+                    {isNonMobileScreens && (
+                        <FlexBetween
+                            backgroundColor={neutralLight}
+                            borderRadius="9px"
+                            gap="3rem"
+                            padding="0.1rem 1.5rem"
+                        >
+                            <InputBase placeholder="What are you looking for?" />
+                            <IconButton>
+                                <Search />
+                            </IconButton>
+                        </FlexBetween>
+                    )}
+                </FlexBetween>
 
-                <FlexBetween padding="1rem 6%" backgroundColor={alt}>
-                    <FlexBetween gap="1.75rem">
-                        <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+                {/* DESKTOP NAV */}
+                <FlexBetween>
+                    {isNonMobileScreens ? (
+                        <FlexBetween gap="2rem">
+                            <IconButton onClick={() => dispatch(setMode())}>
+                                {theme.palette.mode === "dark" ? (
+                                    <DarkModeOutlined sx={{ fontSize: "25px" }} />
+                                ) : (
+                                    <LightModeOutlined sx={{ color: dark, fontSize: "25px" }} />
+                                )}
+                            </IconButton>
+                            <IconButton>
+                                <SettingsOutlined sx={{ fontSize: "25px" }} />
+                            </IconButton>
+                            <NotificationsOutlined sx={{ fontSize: "25px" }} />
+                            <FlexBetween>
+                                <Button
+                                    onClick={handleClick}
+                                    sx={{
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                        alignItems: "center",
+                                        textTransform: "none",
+                                        gap: "1rem",
+                                    }}
+                                >
+                                    <Box
+                                        component="img"
+                                        alt="profile"
+                                        src={profileImage}
+                                        height="32px"
+                                        width="32px"
+                                        borderRadius="50%"
+                                        sx={{ objectFit: "cover" }} />
+                                    <Box textAlign="left">
+                                        <Typography
+                                            fontWeight="bold"
+                                            fontSize="0.85rem"
+                                            sx={{ color: dark }}>
+                                            {fullName}</Typography>
+                                        <Typography
+                                            fontSize="0.75rem"
+                                            sx={{ color: "grey" }}>
+                                            Software Developer
+                                        </Typography>
+                                    </Box>
+                                    <ArrowDropDownOutlined
+                                        sx={{ color: theme.palette.secondary[300], fontSize: "25px" }}
+                                    />
+                                </Button>
+                                <Menu
+                                    anchorEl={anchorEl}
+                                    open={isOpen}
+                                    onClose={handleClose}
+                                    anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                                >
+                                    <MenuItem onClick={() => {
+                                        dispatch(setLogout);
+                                        navigate("/");
+                                    }}>Log Out</MenuItem>
+                                </Menu>
+                            </FlexBetween>
+                        </FlexBetween>
+                    ) : (
+                        <IconButton
+                            onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}
+                        >
                             <MenuIcon />
                         </IconButton>
-                        {isNonMobileScreens && (
-                            <FlexBetween
-                                backgroundColor={neutralLight}
-                                borderRadius="9px"
-                                gap="3rem"
-                                padding="0.1rem 1.5rem"
-                            >
-                                <InputBase placeholder="What are you looking for?" />
-                                <IconButton>
-                                    <Search />
-                                </IconButton>
-                            </FlexBetween>
-                        )}
-                    </FlexBetween>
+                    )}
+                </FlexBetween>
 
-                    {/* DESKTOP NAV */}
-                    <FlexBetween>
-                        {isNonMobileScreens ? (
-                            <FlexBetween gap="2rem">
-                                <IconButton onClick={() => dispatch(setMode())}>
+                {/* MOBILE NAV */}
+                {
+                    !isNonMobileScreens && isMobileMenuToggled && (
+                        <Box
+                            position="fixed"
+                            right="0"
+                            bottom="0"
+                            height="100%"
+                            zIndex="10"
+                            maxWidth="500px"
+                            minWidth="300px"
+                            backgroundColor={background}
+                        >
+                            {/* CLOSE ICON */}
+                            <Box display="flex" justifyContent="flex-end" p="1rem">
+                                <IconButton
+                                    onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}
+                                >
+                                    <Close />
+                                </IconButton>
+                            </Box>
+
+                            {/* MENU ITEMS */}
+                            <FlexBetween
+                                display="flex"
+                                flexDirection="column"
+                                justifyContent="center"
+                                alignItems="center"
+                                gap="3rem"
+                            >
+                                <IconButton
+                                    onClick={() => dispatch(setMode())}
+                                    sx={{ fontSize: "25px" }}
+                                >
                                     {theme.palette.mode === "dark" ? (
                                         <DarkModeOutlined sx={{ fontSize: "25px" }} />
                                     ) : (
                                         <LightModeOutlined sx={{ color: dark, fontSize: "25px" }} />
                                     )}
                                 </IconButton>
+                                <NotificationsOutlined sx={{ fontSize: "25px" }} />
                                 <IconButton>
                                     <SettingsOutlined sx={{ fontSize: "25px" }} />
                                 </IconButton>
-                                <NotificationsOutlined sx={{ fontSize: "25px" }} />
-                                <FlexBetween>
-                                    <Button
-                                        onClick={handleClick}
+                                <FormControl variant="standard" value={fullName}>
+                                    <Select
+                                        value={fullName}
                                         sx={{
-                                            display: "flex",
-                                            justifyContent: "space-between",
-                                            alignItems: "center",
-                                            textTransform: "none",
-                                            gap: "1rem",
-                                        }}
-                                    >
-                                        <Box
-                                            component="img"
-                                            alt="profile"
-                                            src={profileImage}
-                                            height="32px"
-                                            width="32px"
-                                            borderRadius="50%"
-                                            sx={{ objectFit: "cover" }} />
-                                        <Box textAlign="left">
-                                            <Typography
-                                                fontWeight="bold"
-                                                fontSize="0.85rem"
-                                                sx={{ color: dark }}>
-                                                {fullName}</Typography>
-                                            <Typography
-                                                fontSize="0.75rem"
-                                                sx={{ color: "grey" }}>
-                                                Software Developer
-                                            </Typography>
-                                        </Box>
-                                        <ArrowDropDownOutlined
-                                            sx={{ color: theme.palette.secondary[300], fontSize: "25px" }}
-                                        />
-                                    </Button>
-                                    <Menu
-                                        anchorEl={anchorEl}
-                                        open={isOpen}
-                                        onClose={handleClose}
-                                        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-                                    >
-                                        <MenuItem onClick={() => {
-                                            dispatch(setLogout);
-                                            navigate("/");
-                                        }}>Log Out</MenuItem>
-                                    </Menu>
-                                </FlexBetween>
-                            </FlexBetween>
-                        ) : (
-                            <IconButton
-                                onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}
-                            >
-                                <MenuIcon />
-                            </IconButton>
-                        )}
-                    </FlexBetween>
-
-                    {/* MOBILE NAV */}
-                    {
-                        !isNonMobileScreens && isMobileMenuToggled && (
-                            <Box
-                                position="fixed"
-                                right="0"
-                                bottom="0"
-                                height="100%"
-                                zIndex="10"
-                                maxWidth="500px"
-                                minWidth="300px"
-                                backgroundColor={background}
-                            >
-                                {/* CLOSE ICON */}
-                                <Box display="flex" justifyContent="flex-end" p="1rem">
-                                    <IconButton
-                                        onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}
-                                    >
-                                        <Close />
-                                    </IconButton>
-                                </Box>
-
-                                {/* MENU ITEMS */}
-                                <FlexBetween
-                                    display="flex"
-                                    flexDirection="column"
-                                    justifyContent="center"
-                                    alignItems="center"
-                                    gap="3rem"
-                                >
-                                    <IconButton
-                                        onClick={() => dispatch(setMode())}
-                                        sx={{ fontSize: "25px" }}
-                                    >
-                                        {theme.palette.mode === "dark" ? (
-                                            <DarkModeOutlined sx={{ fontSize: "25px" }} />
-                                        ) : (
-                                            <LightModeOutlined sx={{ color: dark, fontSize: "25px" }} />
-                                        )}
-                                    </IconButton>
-                                    <NotificationsOutlined sx={{ fontSize: "25px" }} />
-                                    <IconButton>
-                                        <SettingsOutlined sx={{ fontSize: "25px" }} />
-                                    </IconButton>
-                                    <FormControl variant="standard" value={fullName}>
-                                        <Select
-                                            value={fullName}
-                                            sx={{
+                                            backgroundColor: neutralLight,
+                                            width: "150px",
+                                            borderRadius: "0.25rem",
+                                            p: "0.25rem 1rem",
+                                            "& .MuiSvgIcon-root": {
+                                                pr: "0.25rem",
+                                                width: "3rem",
+                                            },
+                                            "& .MuiSelect-select:focus": {
                                                 backgroundColor: neutralLight,
-                                                width: "150px",
-                                                borderRadius: "0.25rem",
-                                                p: "0.25rem 1rem",
-                                                "& .MuiSvgIcon-root": {
-                                                    pr: "0.25rem",
-                                                    width: "3rem",
-                                                },
-                                                "& .MuiSelect-select:focus": {
-                                                    backgroundColor: neutralLight,
-                                                },
-                                            }}
-                                            input={<InputBase />}
-                                        >
-                                            <MenuItem value={fullName}>
-                                                <Typography>{fullName}</Typography>
-                                            </MenuItem>
-                                            <MenuItem onClick={() => {
-                                                dispatch(setLogout());
-                                                navigate("/");
-                                            }}>
-                                                Log Out
-                                            </MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                </FlexBetween>
-                            </Box>
-                        )
-                    }
-                </FlexBetween >
+                                            },
+                                        }}
+                                        input={<InputBase />}
+                                    >
+                                        <MenuItem value={fullName}>
+                                            <Typography>{fullName}</Typography>
+                                        </MenuItem>
+                                        <MenuItem onClick={() => {
+                                            dispatch(setLogout());
+                                            navigate("/");
+                                        }}>
+                                            Log Out
+                                        </MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </FlexBetween>
+                        </Box>
+                    )
+                }
             </Toolbar>
-        </AppBar>
+        </AppBar >
     );
 };
 
