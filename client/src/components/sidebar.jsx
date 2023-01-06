@@ -75,7 +75,7 @@ const Sidebar = ({ drawerWidth, isSidebarOpen, setIsSidebarOpen, isNonMobile }) 
                                                 color: theme.palette.primary[200],
                                                 backgroundColor: theme.palette.background.alt,
                                                 boxSizing: "border-box",
-                                                borderWidth: isNonMobile ? 0 : "12px",
+                                                borderWidth: isNonMobile ? 0 : "2px",
                                                 width: drawerWidth
                                         }
                                 }}>

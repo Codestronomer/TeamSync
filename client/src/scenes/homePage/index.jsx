@@ -4,6 +4,7 @@ import NavBar from '../navbar';
 import NavBar2 from '../../components/navbar';
 import SideBar from '../../components/sidebar';
 import { useMediaQuery } from '@mui/material';
+import Users from '../users';
 
 const HomePage = () => {
 
@@ -21,6 +22,8 @@ const HomePage = () => {
                         <NavBar2 isSidebarOpen={isSidebarOpen}
                                 setIsSidebarOpen={setIsSidebarOpen} />
                 </Box>
+                <Users />
+
         </Box>
 };
 
