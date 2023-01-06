@@ -50,7 +50,7 @@ const upload = multer({ storage: storage })
 app.use("/assets", express.static(path.join(__dirname, "public/assets")))
 
 // app routes
-app.use('/user', userRouter);
+app.use('/users', userRouter);
 app.use('/', authRouter);
 app.use('/project', projectRouter);
 
