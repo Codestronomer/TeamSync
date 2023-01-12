@@ -12,6 +12,7 @@ import { fileURLToPath } from 'url';
 // Routes
 import userRouter from './routes/user.routes.js';
 import authRouter from './routes/auth.router.js';
+import TeamRouter from './routes/team.routes.js';
 import projectRouter from './routes/project.routes.js';
 
 
@@ -52,7 +53,8 @@ app.use("/assets", express.static(path.join(__dirname, "public/assets")))
 // app routes
 app.use('/users', userRouter);
 app.use('/', authRouter);
-app.use('/project', projectRouter);
+app.use('/projects', projectRouter);
+app.use('/teams', TeamRouter);
 
 /* DATABASE CONNECTION */
 mongoose.connect(process.env.MONGO_URI, {
