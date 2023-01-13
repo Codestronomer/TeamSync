@@ -1,6 +1,5 @@
 import express from 'express';
-import { verify } from 'jsonwebtoken';
-import { getTask, getTasks, getMyTasks, createTasks, assignUser } from '../controllers/tasks.controller.js';
+import { getTask, getTasks, getMyTasks, createTask, assignUser, deleteTask } from '../controllers/tasks.controller.js';
 import { verifyToken } from '../middleware/auth.middleware.js';
 
 // initialize express router
@@ -16,7 +15,7 @@ router.get('/:userId', verifyToken, getMyTasks);
 router.get('/:teamId/:id', verifyToken, getTask);
 
 // create tasks
-router.post('/:teamId', verifyToken, createTasks);
+router.post('/:teamId', verifyToken, createTask);
 
 // Assign member to tasks
 router.patch('/:taskId', verifyToken, assignUser);
@@ -26,3 +25,5 @@ router.patch('/:taskId', verifyToken, assignUser);
 
 // delete task
 router.delete('/:taskId', verifyToken, deleteTask);
+
+export default router;

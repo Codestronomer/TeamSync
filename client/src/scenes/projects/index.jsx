@@ -8,22 +8,38 @@ import {
         styled,
         Typography,
         IconButton,
-        Popover
+        Popover,
+        Modal,
+        Fade,
+        Backdrop
 } from '@mui/material';
 import FlexBetween from '../../components/flexBetween';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 // import profileImage2 from '../../components/profile1.jpg';
 import profileImage from '../../components/profile2.png';
-import { AddCircleOutlineOutlined, MoreHoriz } from '@mui/icons-material';
+import { AddCircleOutlineOutlined, MoreHoriz, ArticleOutlined } from '@mui/icons-material';
+import Form from './form.jsx';
 
+
+const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        borderRadius: '5px',
+        boxShadow: 2,
+        p: 4,
+};
 
 // const User
 const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
         ...theme.typography.body2,
         padding: theme.spacing(1),
-        textAlign: 'center',
+        textAlign: 'left',
         color: theme.palette.text.secondary,
         height: '230px',
         width: '200px',
@@ -31,20 +47,25 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 
-const Users = () => {
-        const [users, setUsers] = useState(null);
+const Projects = () => {
+        const [projects, setProjects] = useState(null);
+        const [anchorEl, setAnchorEl] = useState(null);
+        const [openModal, setModalOpen] = React.useState(false);
         const theme = useTheme();
         const token = useSelector((state) => state.token);
-        const [anchorEl, setAnchorEl] = useState(null);
+        const user = useSelector((state) => state.user);
+        const handleModalOpen = () => setModalOpen(true);
+        const handleModalClose = () => setModalOpen(false);
 
         const getData = async () => {
                 axios({
                         method: 'get',
-                        url: '/users',
-                        headers: { 'Authorization': `Bearer ${token}` }
+                        url: `/projects/user/${user._id}`,
+                        headers: {
+                                'Authorization': `Bearer ${token}`
+                        }
                 }).then((response) => {
-
-                        setUsers(response.data);
+                        setProjects(response.data);
                 }).catch((err) => console.log(err));
         }
 
@@ -66,39 +87,55 @@ const Users = () => {
 
         return (
                 <>
-                        <Typography variant="h3" color={theme.palette.mode === 'dark' ? 'white' : 'dark blue'}>Users</Typography>
+                        <Typography variant="h3" color={theme.palette.mode === 'dark' ? 'white' : 'dark blue'}>Projects</Typography>
                         <FlexBetween padding="2rem 20%">
                                 <Grid container spacing={2}>
                                         <Grid item xs={3.5}>
-                                                <Item>
-                                                        <IconButton sx={{ marginTop: "45px" }} >
+                                                <Item sx={{ textAlign: "center" }}>
+                                                        <IconButton sx={{ marginTop: "45px" }} onClick={handleModalOpen} >
                                                                 <AddCircleOutlineOutlined sx={{
                                                                         fontSize: "36px",
                                                                         color: theme.palette.primary.main
                                                                 }} />
                                                         </IconButton>
+                                                        <Modal
+                                                                aria-labelledby="transition-modal-title"
+                                                                aria-describedby="transition-modal-description"
+                                                                open={openModal}
+                                                                onClose={handleModalClose}
+                                                                closeAfterTransition
+                                                                BackdropComponent={Backdrop}
+                                                                BackdropProps={{
+                                                                        timeout: 500,
+                                                                }}
+                                                        >
+                                                                <Fade in={openModal}>
+                                                                        <Box sx={style}>
+                                                                                <Typography id="transition-modal-title" variant="h4" component="h2" sx={{ marginBottom: "20px" }}>
+                                                                                        Create a new project
+                                                                                </Typography>
+                                                                                <Form id="transition-modal-description" sx={{ mt: 3, marginTop: "10px" }} openModal={openModal}
+                                                                                        setModalOpen={setModalOpen} />
+                                                                        </Box>
+                                                                </Fade>
+                                                        </Modal>
                                                         <Typography variant="h4" fontWeight="bold"
                                                                 color={theme.palette.primary.main}>
-                                                                Add user
+                                                                Add New Project
                                                         </Typography>
                                                 </Item>
                                         </Grid>
-                                        {users && users.map((user) =>
-                                                <Grid item xs={3.5} key={user._id}>
+                                        {projects && projects.map((project) =>
+                                                <Grid item xs={3.5} key={project._id}>
                                                         <Item>
                                                                 <FlexBetween>
-                                                                        <Box
-                                                                                component="img"
-                                                                                alt="profile"
-                                                                                src={profileImage}
-                                                                                height="80px"
-                                                                                width="80px"
-                                                                                borderRadius="50%"
-                                                                                sx={{ objectFit: "cover" }}
-                                                                                margin='10px'
-                                                                                marginLeft='50px' />
+                                                                        <div color="green" borderradius="50%">
+                                                                                <IconButton sx={{ color: "green" }}>
+                                                                                        <ArticleOutlined fontSize="15px" />
+                                                                                </IconButton>
+                                                                        </div>
                                                                         <div>
-                                                                                <IconButton sx={{ top: '-30px' }} onClick={handlePopoverClick}>
+                                                                                <IconButton sx={{ top: '0px' }} onClick={handlePopoverClick}>
                                                                                         <MoreHoriz sx={{ fontSize: "25px" }} />
                                                                                 </IconButton>
                                                                                 <Popover
@@ -121,18 +158,18 @@ const Users = () => {
                                                                         color: theme.palette.mode === 'dark' ? '#fff' : 'black'
                                                                 }}>
                                                                         <Typography variant="h6" fontWeight="bold">
-                                                                                {user.firstName} {user.lastName}
+                                                                                {project.title}
                                                                         </Typography>
                                                                 </Box>
                                                                 <Box>
-                                                                        {user.email}
+                                                                        {project.description}
                                                                 </Box>
                                                                 <Box sx={{
                                                                         color: theme.palette.mode === 'dark' ? '#fff' : 'black',
                                                                         marginTop: '15px',
                                                                         fontWeight: 'bold'
                                                                 }}>
-                                                                        Software Developer
+                                                                        Task Done: 2/5
                                                                 </Box>
                                                         </Item>
                                                 </Grid>
@@ -145,4 +182,4 @@ const Users = () => {
 
 }
 
-export default Users;
+export default Projects;

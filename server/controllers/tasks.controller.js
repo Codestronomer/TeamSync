@@ -57,7 +57,7 @@ export const getTask = async (req, res) => {
         }
 }
 
-router.post('/:teamId', (req, res) => {
+export const createTask = async (req, res) => {
         try {
 
                 // get data from request body, if request body not empty
@@ -88,7 +88,7 @@ router.post('/:teamId', (req, res) => {
         } catch {
                 res.send('Could not create this task.');
         }
-});
+};
 
 // update tasks
 export const assignUser = async () => {

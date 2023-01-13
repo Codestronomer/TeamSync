@@ -14,6 +14,7 @@ import userRouter from './routes/user.routes.js';
 import authRouter from './routes/auth.router.js';
 import TeamRouter from './routes/team.routes.js';
 import projectRouter from './routes/project.routes.js';
+import TaskRouter from './routes/tasks.routes.js';
 
 
 /* CONFIGURATIONS */
@@ -55,6 +56,7 @@ app.use('/users', userRouter);
 app.use('/', authRouter);
 app.use('/projects', projectRouter);
 app.use('/teams', TeamRouter);
+app.use('/tasks', TaskRouter);
 
 /* DATABASE CONNECTION */
 mongoose.connect(process.env.MONGO_URI, {

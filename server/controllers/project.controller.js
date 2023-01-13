@@ -5,14 +5,18 @@ export const createProject = async (req, res) => {
         try {
 
                 if (req.body === undefined) {
-                        return res.status(400).send();
+                        return res.status(400).send("request doesn't contain body");
                 }
                 let { title, description, creator } = req.body;
 
                 const newProject = new Project({
                         title,
                         description,
-                        creator
+                        creator,
+                        teams: [],
+                        tasks: [],
+                        startDate: '',
+                        endDate: ''
                 });
 
                 const savedProject = await newProject.save();
@@ -47,9 +51,10 @@ export const getProjects = async (req, res) => {
         try {
                 // if the request body doesn't contain the appriopriate data
                 if (req.body == undefined) return res.status(500).json({ error: "Bad Request" })
-                const { userId } = req.body;
+                const { id } = req.params;
 
-                const projects = Project.find({ creator: userId })
+                // get projects by creator
+                const projects = await Project.find({ creator: id });
                 res.status(200).json(projects);
         } catch (err) {
                 res.status(500).json({ error: err.message });
@@ -59,14 +64,24 @@ export const getProjects = async (req, res) => {
 export const updateProject = async (req, res) => {
         try {
                 if (req.body == undefined) return res.status(500).json({ error: "Bad Request" })
-                const { userId } = req.body;
+                const { userid } = req.body;
+                const { id } = req.params
 
-                const projects = Project.find({ creator: userId })
-                res.status(200).json(projects);
+                Project.findOneAndUpdate({ _id: id, creator: userid }, {
+                        $set: {
+                                title: req.body.title,
+                                description: req.body.description,
+                                teams: req.body.teams,
+                                startDate: req.body.startDate,
+                                endDate: req.body.endDate
+
+                        }
+                }, { new: true }).then(response => {
+                        res.status(200).send(response);
+                }).catch(err => { res.status(500).send(err); })
         } catch (err) {
                 res.status(500).json({ error: err.message });
         }
-
 }
 
 export const deleteProject = async (req, res) => {
