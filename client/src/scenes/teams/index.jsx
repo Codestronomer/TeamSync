@@ -47,8 +47,8 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 // project component
-const Projects = () => {
-        const [projects, setProjects] = useState(null);
+const Teams = () => {
+        const [teams, setTeams] = useState(null);
         const [anchorEl, setAnchorEl] = useState(null);
         const [openModal, setModalOpen] = React.useState(false);
         const theme = useTheme();
@@ -60,12 +60,12 @@ const Projects = () => {
         const getData = async () => {
                 axios({
                         method: 'get',
-                        url: `/projects/user/${user._id}`,
+                        url: `/project/${user._id}`,
                         headers: {
                                 'Authorization': `Bearer ${token}`
                         }
                 }).then((response) => {
-                        setProjects(response.data);
+                        setTeams(response.data);
                 }).catch((err) => console.log(err));
         }
 
@@ -87,7 +87,7 @@ const Projects = () => {
 
         return (
                 <>
-                        <Typography variant="h3" color={theme.palette.mode === 'dark' ? 'white' : 'dark blue'}>Projects</Typography>
+                        <Typography variant="h3" color={theme.palette.mode === 'dark' ? 'white' : 'dark blue'}>Teams</Typography>
                         <FlexBetween padding="2rem 20%">
                                 <Grid container spacing={2}>
                                         <Grid item xs={3.5}>
@@ -125,7 +125,7 @@ const Projects = () => {
                                                         </Typography>
                                                 </Item>
                                         </Grid>
-                                        {projects && projects.map((project) =>
+                                        {teams && teams.map((project) =>
                                                 <Grid item xs={3.5} key={project._id}>
                                                         <Item>
                                                                 <FlexBetween>
@@ -182,4 +182,4 @@ const Projects = () => {
 
 }
 
-export default Projects;
+export default Teams;

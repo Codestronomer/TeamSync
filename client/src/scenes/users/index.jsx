@@ -18,7 +18,7 @@ import profileImage from '../../components/profile2.png';
 import { AddCircleOutlineOutlined, MoreHoriz } from '@mui/icons-material';
 
 
-// const User
+// styled Item component for users grid
 const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
         ...theme.typography.body2,
@@ -30,13 +30,14 @@ const Item = styled(Paper)(({ theme }) => ({
         borderRadius: '8px'
 }));
 
-
+// users react component
 const Users = () => {
         const [users, setUsers] = useState(null);
         const theme = useTheme();
         const token = useSelector((state) => state.token);
         const [anchorEl, setAnchorEl] = useState(null);
 
+        // get user data from api
         const getData = async () => {
                 axios({
                         method: 'get',
@@ -48,6 +49,7 @@ const Users = () => {
                 }).catch((err) => console.log(err));
         }
 
+        // re-render on after api call
         useEffect(() => {
                 getData();
         }, [])

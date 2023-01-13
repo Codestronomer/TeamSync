@@ -3,6 +3,9 @@ import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom';
 import HomePage from './scenes/homePage';
 import LoginPage from './scenes/loginPage';
 import ProfilePage from './scenes/profilePage';
+import UserPage from './scenes/users';
+import ProjectPage from './scenes/projects';
+import TeamPage from './scenes/teams';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { CssBaseline, ThemeProvider } from '@mui/material';
@@ -23,6 +26,10 @@ function App() {
             <Route path="/" element={<LoginPage />} />
             <Route path="/home" element={<HomePage />} />
             <Route path="/profile/:userId" element={<ProfilePage />} />
+            <Route path="/dashboard" element={<HomePage />} />
+            <Route path="/users" element={<UserPage />} />
+            <Route path="/projects" element={<ProjectPage />} />
+            <Route path="/teams" element={<TeamPage />} />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
