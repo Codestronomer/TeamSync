@@ -18,8 +18,18 @@ const projectSchema = new mongoose.Schema({
         teams: [{
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Team"
-        }]
-}, { timestamps: true })
+        }],
+        // The Tasks parameter is linked with the task collection, getting the task_id
+        // tasks: [
+        //         {
+        //                 type: mongoose.Schema.Types.ObjectId,
+        //                 ref: "Task"
+        //         }
+
+        // ],
+        startDate: Date,
+        endDate: Date
+}, { timestamps: true });
 
 const project = mongoose.model('Project', projectSchema);
 

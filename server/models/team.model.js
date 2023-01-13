@@ -1,8 +1,9 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
+// Create team model schema
 const teamSchema = Schema({
-        teamname: {
+        name: {
                 type: String,
                 trim: true,
                 required: "Team Name is Required"
@@ -21,7 +22,11 @@ const teamSchema = Schema({
         tasks: [{
                 type: Schema.Types.ObjectId,
                 ref: "Task"
-        }]
+        }],
+        project: {
+                type: Schema.Types.ObjectId,
+                ref: "Project"
+        }
 });
 
 const Team = mongoose.model('Team', teamSchema);
