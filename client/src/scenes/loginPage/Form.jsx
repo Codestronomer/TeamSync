@@ -60,7 +60,7 @@ const Form = () => {
                 // }
                 // formData.append('picturePath', values.picture.name);
                 // console.log(formData);
-                axios.post('/auth/register', {
+                axios.post('https://teamsync-production.up.railway.app/auth/register', {
                         firstName: values.firstName,
                         lastName: values.lastName,
                         email: values.email,
@@ -80,7 +80,7 @@ const Form = () => {
         }
 
         const login = async (values, onSubmitProps) => {
-                axios.post('/auth/login', {
+                axios.post('https://teamsync-production.up.railway.app/auth/login', {
                         email: values.email,
                         password: values.password
                 }).then((response) => {

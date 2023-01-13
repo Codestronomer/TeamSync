@@ -60,7 +60,7 @@ const Projects = () => {
         const getData = async () => {
                 axios({
                         method: 'get',
-                        url: `/projects/user/${user._id}`,
+                        url: `https://teamsync-production.up.railway.app/projects/user/${user._id}`,
                         headers: {
                                 'Authorization': `Bearer ${token}`
                         }

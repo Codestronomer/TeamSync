@@ -31,7 +31,7 @@ const Form = ({ children, openModal, setModalOpen }) => {
 
         const project = async (values, onSubmitProps) => {
                 // this allows us to send form data with image
-                axios.post('/projects',
+                axios.post('https://teamsync-production.up.railway.app/projects',
                         {
                                 'title': values.title,
                                 'description': values.description,

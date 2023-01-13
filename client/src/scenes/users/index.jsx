@@ -41,7 +41,7 @@ const Users = () => {
         const getData = async () => {
                 axios({
                         method: 'get',
-                        url: '/users',
+                        url: 'https://teamsync-production.up.railway.app/users',
                         headers: { 'Authorization': `Bearer ${token}` }
                 }).then((response) => {
 
