@@ -59,7 +59,7 @@ export const getTeams = async (req, res) => {
                 const { id } = req.params;
 
                 // get teams in project
-                const teams = await Team.find({ project: id });
+                const teams = await Team.find({ teamMembers: id });
                 res.status(200).json(teams);
         } catch (err) {
                 // return appropriate error message

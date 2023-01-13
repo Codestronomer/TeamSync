@@ -52,6 +52,10 @@ const upload = multer({ storage: storage })
 app.use("/assets", express.static(path.join(__dirname, "public/assets")))
 
 // app routes
+app.get('/', (req, res) => {
+        res.status(200).send("Welcome to TeamSync api");
+});
+
 app.use('/users', userRouter);
 app.use('/', authRouter);
 app.use('/projects', projectRouter);
